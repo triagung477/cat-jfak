@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang='id'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Latihan CAT SJT JFAK</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 10px; padding: 10px; }
+.question { margin-bottom: 20px; }
+button { margin: 5px; padding: 10px; font-size: 16px; }
+input[type='radio'] { transform: scale(1.2); margin-right: 8px; }
+label { display: block; margin-bottom: 8px; }
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  button { width: 100%; margin-top: 10px; }
+}
+</style>
+</head>
+<body>
+<h2>Latihan CAT SJT JFAK - Mobile Friendly</h2>
+<div id='quiz'></div>
+<div>
+  <button onclick='prevQuestion()'>⬅️ Sebelumnya</button>
+  <button onclick='nextQuestion()'>➡️ Berikutnya</button>
+  <button onclick='submitAnswers()'>✅ Selesai dan Lihat Skor</button>
+</div>
+<p id='result'></p>
+<script>
+const questions = [
+  {
+    id: 1,
+    topic: "Integritas",
+    question: "Anda melihat rekan kerja memanipulasi data laporan. Apa yang Anda lakukan?",
+    choices: {
+      A: "Mengabaikan karena bukan tanggung jawab Anda.",
+      B: "Menegur secara pribadi tanpa melaporkan.",
+      C: "Melaporkan ke atasan sesuai prosedur.",
+      D: "Menyimpan bukti untuk digunakan nanti.",
+      E: "Mengikuti permintaan rekan demi tim."
+    },
+    correct_answer: "C",
+    explanation: "Melaporkan sesuai prosedur menunjukkan integritas dan kepatuhan terhadap aturan."
+  }
+];
+let currentIndex = 0;
+let answers = {};
+
+function renderQuestion(index) {
+  const q = questions[index];
+  let html = `<div class='question'><b>Soal ${q.id} (${q.topic})</b><br><p>${q.question}</p>`;
+  for (const key in q.choices) {
+    const checked = answers[q.id] === key ? "checked" : "";
+    html += `<label><input type='radio' name='q${q.id}' value='${key}' ${checked} onchange='saveAnswer(${q.id}, "${key}")'> ${key}. ${q.choices[key]}</label>`;
+  }
+  html += `</div>`;
+  document.getElementById('quiz').innerHTML = html;
+}
+
+function saveAnswer(qid, choice) {
+  answers[qid] = choice;
+}
+
+function nextQuestion() {
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion(currentIndex);
+  }
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderQuestion(currentIndex);
+  }
+}
+
+function submitAnswers() {
+  let score = 0;
+  let review = "<h3>Hasil dan Pembahasan:</h3><ol>";
+  for (const q of questions) {
+    const userAnswer = answers[q.id] || "(Belum dijawab)";
+    const correct = q.correct_answer;
+    const isCorrect = userAnswer === correct;
+    if (isCorrect) score++;
+    review += `<li><b>Soal ${q.id}</b> - Jawaban Anda: ${userAnswer}, Jawaban Benar: ${correct}<br><i>${q.explanation}</i></li>`;
+  }
+  review += "</ol>";
+  document.getElementById('result').innerHTML = `Skor Anda: ${score} dari ${questions.length}` + review;
+}
+
+renderQuestion(currentIndex);
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "topic": "Integritas",
+    "question": "Anda melihat rekan kerja memanipulasi data laporan. Apa yang Anda lakukan?",
+    "choices": {
+      "A": "Mengabaikan karena bukan tanggung jawab Anda.",
+      "B": "Menegur secara pribadi tanpa melaporkan.",
+      "C": "Melaporkan ke atasan sesuai prosedur.",
+      "D": "Menyimpan bukti untuk digunakan nanti.",
+      "E": "Mengikuti permintaan rekan demi tim."
+    },
+    "correct_answer": "C",
+    "explanation": "Melaporkan sesuai prosedur menunjukkan integritas dan kepatuhan terhadap aturan."
+  }
+]
